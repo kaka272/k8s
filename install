@@ -27,7 +27,7 @@ sudo apt-get -y install kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 # 初始化集群
-sudo kubeadm init --apiserver-advertise-address=192.168.64.9 --image-repository registry.cn-hangzhou.aliyuncs.com/google_containers --cri-socket=/var/run/docker.sock --v=5
+sudo kubeadm init --control-plane-endpoint=192.168.64.9 --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --v=5
 
 
 # 安装网络插件
