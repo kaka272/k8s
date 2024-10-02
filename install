@@ -66,8 +66,17 @@ subjects:
 
 # 看板访问地址 绑定到本地端口
 kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+
+Change type: ClusterIP to type: NodePort under the spec section:
+
 spec:
   type: NodePort
+
+# 查看本地端口
+kubectl -n kubernetes-dashboard get service kubernetes-dashboard
+NAME                   TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)         AGE
+kubernetes-dashboard   NodePort   10.96.0.14     <none>        443:XXXXX/TCP   1d
+The XXXXX represents the external port assigned by Kubernetes (default range is between 30000-32767).
 
 
 # 获取token
