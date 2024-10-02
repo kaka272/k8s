@@ -1,1 +1,36 @@
+multipass launch --name master1 --cpus 2 --memory 8G --disk 10G
+multipass launch --name slaver1 --cpus 2 --memory 8G --disk 10G
+
+
+
+# 安装看板
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
+
+#创建用户
+Creating a Service Account
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+#绑定用户
+Creating a ClusterRoleBinding
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+#获取token
+kubectl -n kubernetes-dashboard create token admin-user
 
