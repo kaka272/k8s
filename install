@@ -63,6 +63,14 @@ subjects:
   name: admin-user
   namespace: kubernetes-dashboard
 
+
+# 看板访问地址 绑定到本地端口
+kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+spec:
+  type: NodePort
+
+
 # 获取token
 kubectl -n kubernetes-dashboard create token admin-user
+
 
