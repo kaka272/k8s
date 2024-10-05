@@ -58,7 +58,7 @@ The XXXXX represents the external port assigned by Kubernetes (default range is 
 
 # 获取token
 kubectl -n kubernetes-dashboard create token admin-user
-kubectl -n kubernetes-dashboard create token admin-user --duration=9999999h
+kubectl -n kubernetes-dashboard create token admin-user --duration=999999h
 
 
 
