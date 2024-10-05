@@ -6,3 +6,9 @@ kubectl create -f volume.yaml
 kubectl apply -f deployment.yaml
 
 # kubectl logs jenkins-deployment-2539456353-j00w5 --namespace=devops-tools
+# jenkins/inbound-agent:alpine
+
+
+# https://kubernetes.default.svc.cluster.local
+# http://jenkins-service.devops-tools.svc.cluster.local:8080
+
