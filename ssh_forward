@@ -1,1 +1,9 @@
 
+ssh -R 9003:127.0.0.1:32000  -N ubuntu@106.54.54.7
+Ctrl+Z
+bg
+fg
+
+kubectl get svc -n devops-tools
+ssh -R 9004:127.0.0.1:32001  -N ubuntu@106.54.54.7
+
