@@ -1,0 +1,8 @@
+# https://www.jenkins.io/doc/book/installing/kubernetes/
+
+kubectl create namespace devops-tools
+kubectl apply -f serviceAccount.yaml
+kubectl create -f volume.yaml
+kubectl apply -f deployment.yaml
+
+# kubectl logs jenkins-deployment-2539456353-j00w5 --namespace=devops-tools
