@@ -40,3 +40,11 @@ Description: A brief description of your package
 EOF
 dpkg-deb --build mypackage
 sudo dpkg -i mypackage.deb
+
+
+# 在当前文件夹，对下载好的 deb 文件夹制作一个安装源
+dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
+cat << EOF > /etc/apt/sources.list.d/localrepo.list
+deb [trusted=yes] file:///path/to/repo ./
+EOF
+
