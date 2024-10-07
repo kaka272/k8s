@@ -1,1 +1,42 @@
+# 下载指定 package 到指定目录
+sudo nano /etc/apt/apt.conf
+Dir::Cache::Archives "/path/to/your/download_directory";
+sudo apt-get install --download-only 
 
+
+# 已经下载好的 package 怎么安装
+sudo apt install ./package_name.deb
+
+
+# 查看已安装的包
+dpkg -s libgcc-s1
+apt list --installed | grep libgcc-s1
+
+
+# 查看 deb 包的信息
+dpkg-deb --info package.deb
+dpkg-deb --contents package.deb
+apt show package_name
+dpkg -s package_name
+
+
+#制作一个 deb 包
+sudo apt-get install dpkg-dev
+mkdir mypackage
+cd mypackage
+mkdir -p DEBIAN
+mkdir -p usr/local/bin
+cp /path/to/your/program usr/local/bin/
+touch DEBIAN/control
+cat << EOF > DEBIAN/control
+Package: mypackage
+Version: 1.0
+Section: base
+Priority: optional
+Architecture: all
+Maintainer: Your Name <your.email@example.com>
+Depends: python2
+Description: A brief description of your package
+EOF
+dpkg-deb --build mypackage
+sudo dpkg -i mypackage.deb
