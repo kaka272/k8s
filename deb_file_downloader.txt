@@ -43,8 +43,18 @@ sudo dpkg -i mypackage.deb
 
 
 # 在当前文件夹，对下载好的 deb 文件夹制作一个安装源
-dpkg-scanpackages . /dev/null | gzip -9c > Packages.gz
-cat << EOF > /etc/apt/sources.list.d/localrepo.list
-deb [trusted=yes] file:///path/to/repo ./
-EOF
+mkdir -p /root/virtDeps
+chown _apt /root/virtDeps
+apt download $(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances qemu qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager qemu-system-arm qemu-efi qemu-utils | grep -v amd64 | grep "^\w" | sort -u)
+
+dpkg-scanpackages ./ | gzip -9c > Packages.gz
+apt-ftparchive packages ./ > Packages
+apt-ftparchive release ./ > Release
+
+tar -zvcf virtDeps.tar.gz /root/virtDeps
+
+sudo mv /etc/apt/sources.list /etc/apt/sources.list.bak
+sudo vi /etc/apt/sources.list
+deb [trusted=yes] file:///tmp/virtDeps/ ./
+
 
